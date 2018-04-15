@@ -1,5 +1,5 @@
 # webpack
-webpack、babel基本使用方法
+webpack、babel基本使用方法，详细参考：https://www.webpackjs.com/concepts/
 
 # webpack的安装
 ### 1、在项目目录执行：
@@ -11,14 +11,14 @@ npm install --save-dev webpack
 ```
 ### 2、在项目目录创建文件：webpack.config.js
 
-### 3、在文件webpack.config.js中写入配置
+### 3、在文件webpack.config.js中写入配置<br/>
 
 
 # webpack4个核心配置：
-### 入口(entry)
+### 1、入口(entry)
 入口配置
 
-### 输出(output)
+### 2、输出(output)
 输出文件配置
 
 ```javascript
@@ -37,10 +37,11 @@ module.exports = {
 };
 ```
 
-### loader
+### 3、loader
 loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。
+loader 详细列表参考：https://www.webpackjs.com/loaders/
 
-### 插件(plugins)
+### 4、插件(plugins)
 loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
@@ -66,6 +67,9 @@ const config = {
 
 module.exports = config;
 ```
+
+
+# webpack结合babel编译es6：
 
 
 
