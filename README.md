@@ -81,17 +81,34 @@ const config = {
 module.exports = config;
 ```
 
+# 安装webpack启动工具
+1、安装命令：npm install webpack-cli --save-dev<br/>
+2、先不安装，在执行webpack时会提示是否安装，选择yes即可。
+```bash
+[ymc@yangmaohaodeMBP /Users/ymc/Desktop/文档/projects/webpack$]webpack
+The CLI moved into a separate package: webpack-cli
+Would you like to install webpack-cli? (That will run npm install -D webpack-cli) (yes/NO)yes
+```
 
 # webpack结合babel编译es6：
 ### 1、需要安装的babel插件
-正常的es6编码通常需要以下两种插件：<br/>
+* 正常的es6编码通常需要以下两种插件：<br/>
+```bash
 npm install babel-loader babel-core babel-preset-env --save-dev <br/>
+```
 babel-loader<br/>
 babel-core<br/>
 babel-preset-env<br/>
 
 babel-preset-env，为最新的版本，替换了babel-preset-es2015<br/>
 babel-preset-es2015<br/>
+预设 babel-preset 系列打包了一组插件，类似于餐厅的套餐。如 babel-preset-es2015 打包了 es6 的特性，babel-preset-stage-0 打包处于 strawman 阶段的语法
+
+* 其它的babel相关插件：
+babel-cli<br/>
+babel-polyfill<br/>
+babel-runtime<br/>
+babel-plugin-transform-runtime<br/>
 
 查看安装：在packege.json中出现了如下配置
 ```bash
@@ -117,7 +134,8 @@ babel的options参考：https://babeljs.io/docs/usage/api/#options
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"] //List of presets (a set of plugins) to load and use.
+            presets: ["env"], //List of presets (a set of plugins) to load and use.
+            plugins: []
           }
         }
       }
@@ -125,6 +143,34 @@ babel的options参考：https://babeljs.io/docs/usage/api/#options
   }
 ```
 
+### 3、.babelrc文件的配置
+（1）babel的配置可以在webpack.config.js完成
+（2）如果项目过大，可以单独配置.babelrc文件
+（3）babel的配置都需要写在webpack.config.js文件options中或者.babelrc 文件中
+在我们告诉 Babel 该做什么之前，你需要做的就是在项目的根路径下创建 .babelrc 文件。然后输入以下内容作为开始：
+```javascript
+{
+  "presets": [],
+  "plugins": []
+}
+```
+这个文件就是用来让 Babel 做你要它做的事情的配置文件。
+例如，安装babel-preset-env后，配置：
+```javascript
+{
+  "presets": ["env"],
+  "plugins": []
+}
+```
+
+# webpack 执行
+1、在项目目录执行：webpack
+2、查看webpack执行进度：webpack --progress
+3、监视文件变化：webpack --watch，也可以在webpack.config.js里面写入配置：
+```javascript
+  // 监控文件修改
+  watch: false,
+```
 
 
 
