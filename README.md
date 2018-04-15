@@ -6,6 +6,7 @@ webpack、babel基本使用方法，详细参考：https://www.webpackjs.com/con
 [3、安装webpack启动工具](#安装webpack启动工具)<br/>
 [4、webpack结合babel编译es6](#webpack结合babel编译es6)<br/>
 [5、webpack执行](#webpack执行)<br/>
+[6、webpack常用打包](#webpack常用打包)<br/>
 
 # webpack的安装
 ### 1、在项目目录执行：
@@ -175,8 +176,75 @@ babel的options参考：https://babeljs.io/docs/usage/api/#options
   watch: false,
 ```
 
+# webpack常用打包
+### 1、html打包插件
+* npm install html-webpack-plugin --save-dev
+* 配置webpack.config.js
+```javascript
+  var HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
+  
+  //插件，详细配置参考：https://segmentfault.com/a/1190000007294861
+  plugins: [
+    new HtmlWebpackPlugin()
+  ]
+```
 
+### 2、代码压缩混淆
+* npm i -D uglifyjs-webpack-plugin
+* 配置webpack.config.js
+```javascript
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+module.exports = {
+  plugins: [
+    new UglifyJsPlugin() //详细参考：https://www.webpackjs.com/plugins/uglifyjs-webpack-plugin/
+  ]
+}
+```
+# webpack示例配置代码：
+```javascript
+const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+module.exports = {
+  // 入口文件：需要进行打包整合的文件路径
+  entry: "./src/index.js",
+  // path指输出文件路径
+  // filename指输出文件名
+  // __dirname表示当前路径
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "my-webpack.bundle.js"
+  },
+
+  // 监控文件修改
+  watch: false,
+
+  // module.rules 允许你在 webpack 配置中指定多个 loader。
+  // babel-preset-env为最新的版本，替换了babel-preset-es2015，babel-preset-env replaces es2015, es2016, es2017 and latest，参考：https://babeljs.io/docs/plugins/#presets
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["env"], //List of presets (a set of plugins) to load and use.
+            plugins: []
+          }
+        }
+      }
+    ]
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new UglifyJsPlugin() //详细参考：https://www.webpackjs.com/plugins/uglifyjs-webpack-plugin/
+  ]
+};
+```
 
 
 
