@@ -38,7 +38,7 @@ module.exports = {
 ```
 
 ### 3、loader
-loader 让 webpack 可以预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。。
+loader 让 webpack 可以预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。。<br/>
 loader 详细列表参考：https://www.webpackjs.com/loaders/
 
 ### 4、插件(plugins)
@@ -70,6 +70,17 @@ module.exports = config;
 
 
 # webpack结合babel编译es6：
+### 1、需要安装的babel插件
+正常的es6编码通常需要以下两种插件：<br/>
+npm install babel-loader --save-dev
+npm install babel-preset-es2015 --save-dev
 
-
+查看安装：在packege.json中出现了如下配置
+```bash
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^4.5.0"
+  }
+```
 
