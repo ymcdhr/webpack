@@ -38,7 +38,7 @@ module.exports = {
 ```
 
 ### 3、loader
-loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。
+loader 让 webpack 可以预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。。
 loader 详细列表参考：https://www.webpackjs.com/loaders/
 
 ### 4、插件(plugins)
