@@ -7,6 +7,7 @@ webpack、babel基本使用方法，详细参考：https://www.webpackjs.com/con
 [4、webpack结合babel编译es6](#webpack结合babel编译es6)<br/>
 [5、webpack执行](#webpack执行)<br/>
 [6、webpack常用打包](#webpack常用打包)<br/>
+[7、webpack示例配置代码](#webpack示例配置代码)<br/>
 
 # webpack的安装
 ### 1、在项目目录执行：
@@ -201,7 +202,7 @@ module.exports = {
   ]
 }
 ```
-# webpack示例配置代码：
+# webpack示例配置代码
 ```javascript
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
