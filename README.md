@@ -3,7 +3,7 @@ webpack、babel基本使用方法，详细参考：https://www.webpackjs.com/con
 
 [1、webpack的安装](#webpack的安装)<br/>
 [2、webpack4个核心配置](#webpack4个核心配置)<br/>
-[3、安装webpack启动工具](#安装webpack启动工具)<br/>
+[3、webpack启动工具：webpack-cli](#webpack启动工具)<br/>
 [4、webpack结合babel编译es6](#webpack结合babel编译es6)<br/>
 [5、webpack执行](#webpack执行)<br/>
 [6、webpack常用打包](#webpack常用打包)<br/>
@@ -89,7 +89,7 @@ const config = {
 module.exports = config;
 ```
 
-# 安装webpack启动工具
+# webpack启动工具
 1、安装命令：npm install webpack-cli --save-dev<br/>
 2、先不安装，在执行webpack时会提示是否安装，选择yes即可。<br/>
 ```bash
