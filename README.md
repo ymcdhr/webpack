@@ -90,19 +90,40 @@ babel-loader<br/>
 babel-core<br/>
 babel-preset-env<br/>
 
+babel-preset-env，为最新的版本，替换了babel-preset-es2015<br/>
 babel-preset-es2015<br/>
 
 查看安装：在packege.json中出现了如下配置
 ```bash
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "webpack": "^4.5.0"
   }
 ```
 
 ### 2、在webpack.config.js中添加配置
-
+babel的options参考：https://babeljs.io/docs/usage/api/#options
+```javascript
+  // module.rules 允许你在 webpack 配置中指定多个 loader。
+  // babel-preset-env为最新的版本，替换了babel-preset-es2015，babel-preset-env replaces es2015, es2016, es2017 and latest，参考：https://babeljs.io/docs/plugins/#presets
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"] //List of presets (a set of plugins) to load and use.
+          }
+        }
+      }
+    ]
+  }
+```
 
 
 
