@@ -24,7 +24,64 @@ npm install --save-dev webpack
 
 # webpack4个核心配置：
 ### 1、入口(entry)
-入口配置
+入口配置<br/>
+
+* 1、多文件入口的配置
+
+* 2、__dirname的指向？当前执行文件所在的路径。
+
+* 3、path.resolve的左右？根据参数将路径转换为绝对路径，例如：<br/>
+index: path.resolve(__dirname,'../src/entry.js'), 
+
+* 4、html的引入，使用插件htmlWebpackPlugins生成index.html
+
+* 5、业务代码的引入，在webpack中没有专门处理。<br/>
+因为在react中，一切皆组件；所以在入口处引入react组件APP即可。
+
+* 6、公共库js的引入<br/>
+在webpack.config.js中引入，然后使用插件CommonsChunkPlugin打包并提取公用文件。<br/>
+```javascript
+vendor: [
+    path.resolve(__dirname,'../src/util/lib-require1.js'),
+    path.resolve(__dirname,'../src/util/lib-require2.js')
+]
+
+// 打包公共库/插件文件
+// 1、可以将入口的文件合并打包
+// 2、可以将入口文件中共用的import/require的文件提取出来
+// 3、提取公用代码时，会根据minChunks条件来做判断
+new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    chunks: ['vendor'],// entry中的模块名称
+    filename: 'vendor.bundle.js',
+    minChunks: 2// 最小调用次数
+}),
+```
+* 7、区分打包环境
+（1）package.json中环境变量的设置，例如在scripts中：<br/>
+```bash
+"scripts": {
+  "dev": "set NODE_ENV=dev&&webpack --progress"
+},
+```
+（2）webpack.config中读取环境变量<br/>
+```javascript
+getEnv: function(){
+    // process.env.NODE_ENV在package.json中设置
+    switch(process.env.NODE_ENV){
+        case 'dev':
+            return '/dev/';
+        case 'prd':
+            return '/prd/';
+        case 'hot':
+            return '/hot/';
+        default:
+            return '/dev/';
+    }
+}
+```
+* 8、webpack下glob的使用，通常在有很多html或者其它模版的时候需要
+
 
 ### 2、输出(output)
 输出文件配置
@@ -45,6 +102,11 @@ module.exports = {
 };
 ```
 
+* 1、filename
+* 2、path
+* 3、chunkFilename
+* 4、判断当前运行环境，根据npm run参数来运行：process.env.NODE_ENV
+
 ### 3、loader
 loader 让 webpack 可以预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。。<br/>
 loader 详细列表参考：https://www.webpackjs.com/loaders/ <br/>
@@ -62,6 +124,76 @@ module.exports = {
 };
 ```
 
+* 1、css的编译
+（1）css-loader，加载.css文件<br/>
+（2）style-loader，将css以style形式注入到html<br/>
+（3）示例：<br/>
+```javascript
+// use: [
+//     {loader:'style-loader'},// 将css以style形式注入到html
+//     {loader:'css-loader'}   // 加载.css文件
+// ],
+```
+（4）ExtractTextPlugin插件，提取css样式文件，避免打包到js中<br/>
+```javascript
+{
+    test: /\.css$/, 
+    // 使用了ExtractTextPlugin，就注释此处
+    // use: [
+    //     {loader:'style-loader'},// 将css以style形式注入到html
+    //     {loader:'css-loader'}   // 加载.css文件
+    // ],
+
+    // 在js中import或者require引入的css文件，传统的方式是通过js写入到bound.js
+    // 使用ExtractTextPlugin插件，可以提取css样式到单独的css文件
+    use: ExtractTextPlugin.extract({
+        use: 'css-loader'
+    })
+},
+```
+
+* 2、es6/es7的编译
+（1）基本的babel插件<br/>
+babel-loader<br/>
+babel-core<br/>
+babel-preset-env<br/>
+babel-preset-env，为最新的版本，替换了babel-preset-es2015<br/>
+预设 babel-preset 系列打包了一组插件，类似于餐厅的套餐。如 babel-preset-es2015 打包了 es6 的特性，babel-preset-stage-0 打包处于 strawman 阶段的语法；<br/>
+babel-preset-stage-0 为将es7编译成es5的插件，stage-0包含stage-1，2，3所有功能。<br/>
+
+（2）其它的babel相关插件：<br/>
+babel-cli<br/>
+babel-polyfill<br/>
+Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。<br/>
+举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。<br/>
+babel-polyfill相对来说比较大。<br/>
+babel-runtime<br/>
+babel-plugin-transform-runtime<br/>
+
+（3）兼容ie8，转换es3的插件。目前使用es3ify-loader会报错，待排查？<br/>
+```javascript
+{
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: [
+        {
+            loader:"babel-loader"
+            // 配置单独放在.babelrc文件里面
+            // query:{
+            //    "presets": ["es2015", "react", "stage-0"],
+            //    "plugins": [
+            //      "add-module-exports",
+            //      "transform-class-properties",
+            //      "transform-es3-member-expression-literals",
+            //      "transform-es3-property-literals",
+            //      "transform-es5-property-mutators",
+            //      "transform-es3-property-literals"
+            //    ]
+            // }
+        }
+    ]
+},
+```
 ### 4、插件(plugins)
 loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。
 ```javascript
@@ -89,6 +221,99 @@ const config = {
 module.exports = config;
 ```
 
+* 1、文件压缩/混淆：uglifyJsPlugin
+（1）压缩插件的基本配置<br/>
+（2）通常只在生产环境压缩文件，所以需要判断<br/>
+
+
+* 2、清理环境：cleanWebpackPlugin
+
+
+* 3、DllReferencePlugin
+
+
+* 4、分离js代码：CommonsChunkPlugin
+（1）分离js的原因：<br/>
+// 1、可以将入口的文件合并打包<br/>
+// 2、可以将入口文件中共用的import/require的文件提取出来<br/>
+// 3、提取公用代码时，会根据minChunks条件来做判断<br/>
+（2）示例代码：
+```javascript
+entry：
+vendor: ['./src/util/lib1.js','./src/util/lib2.js']
+
+plugins：
+new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    chunks: ['vendor'],// entry中的模块名称
+    filename: 'vendor.bundle.js',
+    minChunks: 2// 最小调用次数
+}),
+```
+
+* 5、分离css文件：extract-text-webpack-plugin，2.1.2对应webpack.2.7.0
+（1）分离css的原因<br/>
+// 在js中import或者require引入的css文件，传统的方式是通过js写入到bound.js<br/>
+// 使用ExtractTextPlugin插件，可以提取css样式到单独的css文件<br/>
+（2）怎么分离<br/>
+```javascript
+loader rule:
+// 在js中import或者require引入的css文件，传统的方式是通过js写入到bound.js
+// 使用ExtractTextPlugin插件，可以提取css样式到单独的css文件
+use: ExtractTextPlugin.extract({
+    use: 'css-loader'
+})
+
+plugins:
+let Plugins = [
+    // 提取css，统一打包到style.css
+    new ExtractTextPlugin('/styles.css'),
+    ...
+]
+```
+* 6、按需加载文件：require.ensure
+
+
+* 7、文件拷贝：CopyWebpackPlugin
+```javascript
+/**
+ * 文件拷贝，参数如下
+ * from    定义要拷贝的源目录           from: __dirname + ‘/src/public’
+ * to      定义要拷贝到的目标目录     from: __dirname + ‘/dist’
+ * toType  file 或者 dir         可选，默认是文件
+ * force   强制覆盖先前的插件           可选 默认false
+ * context                         可选 默认base context可用specific context
+ * flatten 只拷贝文件不管文件夹      默认是false
+ * ignore  忽略拷贝指定的文件           可以用模糊匹配
+ */
+new CopyWebpackPlugin([
+    {
+    from: __dirname + "/../src/data/",
+    to: __dirname + "/../dist/data/"
+    }
+]),
+```
+
+* 8、生成html文件：htmlWebpackPlugins
+（1）插件的作用：<br/>
+（2）详细配置参考：<br/>
+```javascript
+// 用于生成html文件，配置参考：https://segmentfault.com/a/1190000007294861
+new HtmlWebpackPlugin({
+    title: "react-redux-webpack",
+    filename: "index.html",
+    template: "./src/index.html",  //引用模版，会将处理过后的css和js添加的模版中，也可以是其它格式的模版（需要安装对应的插件）
+    inject: true,// script是否至于body底部
+    minify: {
+        removeAttributeQuotes: true // 移除属性的引号
+    },
+    hash: true,
+    cache: true,
+    showErrors: true,// 如果 webpack 编译出现错误，webpack会将错误信息包裹在一个 pre 标签内，属性的默认值为 true ，也就是显示错误信息。
+    // chunks: ['index'],// 指定加载js文件，默认全部加载
+    xhtml: false
+}),
+```
 # webpack启动工具
 1、安装命令：npm install webpack-cli --save-dev<br/>
 2、先不安装，在执行webpack时会提示是否安装，选择yes即可。<br/>
