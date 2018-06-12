@@ -26,14 +26,14 @@ npm install --save-dev webpack
 ### 1、入口(entry)
 入口配置<br/>
 
-* 1、多文件入口的配置
+* 1、多文件入口的配置<br/>
 
-* 2、__dirname的指向？当前执行文件所在的路径。
+* 2、__dirname的指向？当前执行文件所在的路径。<br/>
 
 * 3、path.resolve的左右？根据参数将路径转换为绝对路径，例如：<br/>
 index: path.resolve(__dirname,'../src/entry.js'), 
 
-* 4、html的引入，使用插件htmlWebpackPlugins生成index.html
+* 4、html的引入，使用插件htmlWebpackPlugins生成index.html<br/>
 
 * 5、业务代码的引入，在webpack中没有专门处理。<br/>
 因为在react中，一切皆组件；所以在入口处引入react组件APP即可。
@@ -57,7 +57,7 @@ new webpack.optimize.CommonsChunkPlugin({
     minChunks: 2// 最小调用次数
 }),
 ```
-* 7、区分打包环境
+* 7、区分打包环境<br/>
 （1）package.json中环境变量的设置，例如在scripts中：<br/>
 ```bash
 "scripts": {
@@ -124,7 +124,7 @@ module.exports = {
 };
 ```
 
-* 1、css的编译
+* 1、css的编译<br/>
 （1）css-loader，加载.css文件<br/>
 （2）style-loader，将css以style形式注入到html<br/>
 （3）示例：<br/>
@@ -152,23 +152,23 @@ module.exports = {
 },
 ```
 
-* 2、es6/es7的编译
+* 2、es6/es7的编译<br/>
 （1）基本的babel插件<br/>
-babel-loader<br/>
-babel-core<br/>
-babel-preset-env<br/>
-babel-preset-env，为最新的版本，替换了babel-preset-es2015<br/>
-预设 babel-preset 系列打包了一组插件，类似于餐厅的套餐。如 babel-preset-es2015 打包了 es6 的特性，babel-preset-stage-0 打包处于 strawman 阶段的语法；<br/>
-babel-preset-stage-0 为将es7编译成es5的插件，stage-0包含stage-1，2，3所有功能。<br/>
+* babel-loader<br/>
+* babel-core<br/>
+* babel-preset-env<br/>
+* babel-preset-env，为最新的版本，替换了babel-preset-es2015<br/>
+* 预设 babel-preset 系列打包了一组插件，类似于餐厅的套餐。如 babel-preset-es2015 打包了 es6 的特性，babel-preset-stage-0 打包处于 strawman 阶段的语法；<br/>
+* babel-preset-stage-0 为将es7编译成es5的插件，stage-0包含stage-1，2，3所有功能。<br/>
 
 （2）其它的babel相关插件：<br/>
-babel-cli<br/>
-babel-polyfill<br/>
-Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。<br/>
-举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。<br/>
-babel-polyfill相对来说比较大。<br/>
-babel-runtime<br/>
-babel-plugin-transform-runtime<br/>
+* babel-cli<br/>
+* babel-polyfill<br/>
+* Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。<br/>
+* 举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。<br/>
+* babel-polyfill相对来说比较大。<br/>
+* babel-runtime<br/>
+* babel-plugin-transform-runtime<br/>
 
 （3）兼容ie8，转换es3的插件。目前使用es3ify-loader会报错，待排查？<br/>
 ```javascript
