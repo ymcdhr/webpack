@@ -26,19 +26,19 @@ npm install --save-dev webpack
 ### 1、入口(entry)
 入口配置<br/>
 
-* 1、多文件入口的配置<br/>
+#### 1、多文件入口的配置<br/>
 
-* 2、__dirname的指向？当前执行文件所在的路径。<br/>
+#### 2、__dirname的指向？当前执行文件所在的路径。<br/>
 
-* 3、path.resolve的左右？根据参数将路径转换为绝对路径，例如：<br/>
+#### 3、path.resolve的左右？根据参数将路径转换为绝对路径，例如：<br/>
 index: path.resolve(__dirname,'../src/entry.js'), 
 
-* 4、html的引入，使用插件htmlWebpackPlugins生成index.html<br/>
+#### 4、html的引入，使用插件htmlWebpackPlugins生成index.html<br/>
 
-* 5、业务代码的引入，在webpack中没有专门处理。<br/>
+#### 5、业务代码的引入，在webpack中没有专门处理。<br/>
 因为在react中，一切皆组件；所以在入口处引入react组件APP即可。
 
-* 6、公共库js的引入<br/>
+#### 6、公共库js的引入<br/>
 在webpack.config.js中引入，然后使用插件CommonsChunkPlugin打包并提取公用文件。<br/>
 ```javascript
 vendor: [
@@ -57,7 +57,8 @@ new webpack.optimize.CommonsChunkPlugin({
     minChunks: 2// 最小调用次数
 }),
 ```
-* 7、区分打包环境<br/>
+
+#### 7、区分打包环境<br/>
 （1）package.json中环境变量的设置，例如在scripts中：<br/>
 ```bash
 "scripts": {
@@ -80,7 +81,8 @@ getEnv: function(){
     }
 }
 ```
-* 8、webpack下glob的使用，通常在有很多html或者其它模版的时候需要
+
+#### 8、webpack下glob的使用，通常在有很多html或者其它模版的时候需要
 
 
 ### 2、输出(output)
@@ -124,7 +126,7 @@ module.exports = {
 };
 ```
 
-* 1、css的编译<br/>
+#### 1、css的编译<br/>
 （1）css-loader，加载.css文件<br/>
 （2）style-loader，将css以style形式注入到html<br/>
 （3）示例：<br/>
@@ -152,7 +154,7 @@ module.exports = {
 },
 ```
 
-* 2、es6/es7的编译<br/>
+#### 2、es6/es7的编译<br/>
 （1）基本的babel插件<br/>
 * babel-loader<br/>
 * babel-core<br/>
