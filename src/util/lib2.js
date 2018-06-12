@@ -1,0 +1,1 @@
+console.log("test lib2.js");
