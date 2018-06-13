@@ -8,6 +8,8 @@ class Coms extends Component {
     render() {
         return (
             <div>
+                <div>测试～</div>
+
                 <p>顶部标题11</p>
                 <NavTitle></NavTitle>
 

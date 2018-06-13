@@ -55,15 +55,21 @@
         //     from: __dirname + "/../src/index.html",
         //     to: __dirname + "/../dist/"
         //   }
-        ]),
-    
-        // 热更新与热加载hmr
-        // OccurenceOrderPlugin is needed for webpack 1.x only
-        // new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        // Use NoErrorsPlugin for webpack 1.x
-        // new webpack.NoEmitOnErrorsPlugin()
+        ])
       ];
+
+      // hot 模式下package.json中加了--hot参数就不需要了，des模式需要
+      if(helper.getEnv()==="/des/"||helper.getEnv()==="/exp/"){
+        // 热更新与热加载hmr
+        // webpack-dev-server --hot，加了参数hot就可以省略HotModuleReplacementPlugin
+        Plugins.push(new webpack.HotModuleReplacementPlugin());
+        // Use NoErrorsPlugin for webpack 1.x
+        // 当模块热替换（HMR）时在浏览器控制台输出对用户更友好的模块名字信息
+        Plugins.push(new webpack.NoEmitOnErrorsPlugin());
+      }
+      else{
+          console.log("env:",helper.getEnv());
+      }
 
       m.exports = Plugins;
 }(module));

@@ -4,10 +4,11 @@
   "description": "React IE8 Fetch IE8 Example",
   "main": "entry.js",
   "scripts": {
-    "start": "webpack-dev-server --host=0.0.0.0",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "set NODE_ENV=dev&&webpack --progress",
-    "hot": "node server.js"
+    "des": "export NODE_ENV=des&&node devServer.js",
+    "exp": "export NODE_ENV=exp&&node expServer.js",
+    "prd": "export NODE_ENV=prd&&webpack --progress",
+    "dev": "export NODE_ENV=dev&&webpack --progress",
+    "hot": "export NODE_ENV=hot&&webpack-dev-server --hot --inline --content-base"
   },
   "repository": {
     "type": "git",
@@ -50,10 +51,11 @@
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^2.1.2",
     "html-webpack-plugin": "^3.2.0",
+    "react-hot-loader": "^4.3.1",
     "style-loader": "^0.21.0",
     "webpack": "^2.7.0",
     "webpack-dev-middleware": "^1.12.2",
-    "webpack-dev-server": "^1.14.0",
+    "webpack-dev-server": "^2.11.2",
     "webpack-hot-middleware": "^2.22.2"
   }
 }

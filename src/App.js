@@ -20,12 +20,12 @@ class App extends React.Component {
         <pre><code>
           {JSON.stringify(this.state, null, 2)}
         </code></pre>
-
         {/* 自定义组件，redux示例 */}
         <Coms />
       </div>
     );
   }
 }
+
 
 export default App;
