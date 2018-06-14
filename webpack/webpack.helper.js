@@ -45,17 +45,17 @@
 
             switch(process.env.NODE_ENV){
                 case 'des':
-                    return '/des/';
+                    return 'des';
                 case 'exp':
-                    return '/exp/';
+                    return 'exp';
                 case 'dev':
-                    return '/dev/';
+                    return 'dev';
                 case 'prd':
-                    return '/prd/';
+                    return 'prd';
                 case 'hot':
-                    return '/hot/';
+                    return 'hot';
                 default:
-                    return '/dev/';
+                    return 'dev';
             }
         }
     }

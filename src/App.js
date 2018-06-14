@@ -1,5 +1,6 @@
 import React from 'react';
 import Coms from './components/coms.js'
+import './style/app.css'
 
 class App extends React.Component {
   constructor(){
@@ -15,11 +16,14 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>Fetching data.json</h1>
-        <pre><code>
-          {JSON.stringify(this.state, null, 2)}
-        </code></pre>
+      <div className="w">
+        <div className="fetch-demo">
+          <p>fetch获取到的数据为：</p>
+          <pre><code>
+            {JSON.stringify(this.state, null, 2)}
+          </code></pre>
+        </div>
+     
         {/* 自定义组件，redux示例 */}
         <Coms />
       </div>

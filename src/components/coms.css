@@ -1,4 +1,6 @@
-
+.com-box{
+    background-color: #ffffff;
+}
 
 /* navTitle */
 .nav-bar {
@@ -172,31 +174,54 @@
 
 
 
+
+
+
 /* 购物车 */
+.shopping-cart{
+    width: 600px;
+    padding: 20px;
+}
 .shopping-cart ul li{
     list-style: none;
-    height: 1.5rem;
-    line-height: 1.5rem;
+    height: 45px;
+    line-height: 45px;
     border-bottom: 1px dotted #DCDCDC;
     background-color: #fff;
+    cursor: pointer;
 }
-
+.shopping-cart ul li:nth-child(2n+1){
+    background-color: #f2f2f2;
+}
+.shopping-title{
+    height: 60px;
+    line-height: 60px;
+}
 .products-list{
+    min-height: 200px;
     text-align: center;
+    border: 1px solid #f2f2f2;    
+    margin-bottom: 20px;
+}
+.products-added{
+    min-height: 200px;
+    text-align: center;
+    border: 1px solid #f2f2f2;    
 }
 
 .added-list{
-
 }
 
 .products-list .btn{
     display: inline-block;
-    margin: 0 .4rem;
+    margin: 20px 20px;
 }
 .btn{
-    width: 4rem;
-    height: 2rem;
-    line-height: 2rem;
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
-    border: 1px solid royalblue;
+    background-color:royalblue;
+    color: #ffffff;
+    cursor: pointer;
 }

@@ -7,13 +7,12 @@ import './coms.css';
 class Coms extends Component {
     render() {
         return (
-            <div>
-                <div>测试～</div>
+            <div className="com-box">
 
-                <p>顶部标题11</p>
-                <NavTitle></NavTitle>
+                {/* <p>顶部标题11</p> */}
+                {/* <NavTitle></NavTitle> */}
 
-                <p>redux示例：购物车</p>
+                {/* <p>redux示例：购物车</p> */}
                 <ProductsCnt></ProductsCnt>
 
             </div>

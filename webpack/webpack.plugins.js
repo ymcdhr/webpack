@@ -59,7 +59,7 @@
       ];
 
       // hot 模式下package.json中加了--hot参数就不需要了，des模式需要
-      if(helper.getEnv()==="/des/"||helper.getEnv()==="/exp/"){
+      if(helper.getEnv()==="des"||helper.getEnv()==="exp"){
         // 热更新与热加载hmr
         // webpack-dev-server --hot，加了参数hot就可以省略HotModuleReplacementPlugin
         Plugins.push(new webpack.HotModuleReplacementPlugin());
